@@ -1,0 +1,64 @@
+<p class="bottom-border">ACME Offer - New Application</p>
+
+<form *ngIf="investorFormGroup" [formGroup]="investorFormGroup" (ngSubmit)="submit()" novalidate>
+  <!-- Country of Residence -->
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Country of Residence*</label>
+    <div class="col-sm-4">
+      <select class="form-control" formControlName="countryOfResidence" (change)="onCountrySelect()">
+          <option [value]="null">Please select</option>
+        <option *ngFor="let option of countryList" [value]="option.countryId">{{ option.countryName }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- State -->
+  <div class="form-group row" *ngIf="countrySelectedIsAustralia">
+    <label class="col-sm-2 col-form-label">State*</label>
+    <div class="col-sm-4">
+      <select class="form-control" formControlName="state" (change)="onStateAndPostcodeChange()">
+          <option [ngValue]="null">Please select</option>
+        <option *ngFor="let state of states" [ngValue]="state">{{ state }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Postcode -->
+  <div class="form-group row" *ngIf="countrySelectedIsAustralia">
+    <label class="col-sm-2 col-form-label">Postcode*</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" (change)="onStateAndPostcodeChange()"
+        [ngClass]="{ 'is-invalid': postcode.invalid && (postcode.dirty || postcode.touched) }" formControlName="postcode" maxlength="4">
+    </div>
+    <div *ngIf="postcode.invalid && (postcode.dirty || postcode.touched)" class="error text-danger">
+      <div *ngIf="postcode.errors.required">
+        Postcode is required.
+      </div>
+    </div>
+    <div *ngIf="isStateAndPostcodeValid == false" class="error text-danger">
+      State and Postcode combination is not valid.
+    </div>
+  </div>
+
+  <!-- Fullname -->
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Full Name*</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" formControlName="fullName" 
+        [ngClass]="{ 'is-invalid': fullName.invalid && (fullName.dirty || fullName.touched) }" maxlength="120">
+    </div>
+    <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)" class="error text-danger">
+      <div *ngIf="fullName.errors.required">
+        Fullname is required.
+      </div>
+      <div *ngIf="fullName.errors.maxLength">
+        Fullname length should not exceed 120 characters.
+      </div>
+      <div *ngIf="fullName.errors.pattern">
+        Fullname should contain only characters.
+      </div>  
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!investorFormGroup.valid || isStateAndPostcodeValid == 'false'" class="btn btn-primary">Submit Application</button>
+</form>

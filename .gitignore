@@ -1,0 +1,9 @@
+/Acme.Api/Acme.Api/obj
+/Acme.Api/Acme.Api/bin
+/Acme.Api/Acme.Business/obj
+/Acme.Api/Acme.Business/bin
+/Acme.Api/Acme.Data/obj
+/Acme.Api/Acme.Data/bin
+/Acme.Api/Acme.UnitTest/obj
+/Acme.Api/Acme.UnitTest/bin
+/Acme-UI/node_modules

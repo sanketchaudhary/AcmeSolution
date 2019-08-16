@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Acme.Data": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ConnectionString": "Server=(localdb)\\\\ProjectsV13;Database=Acme;Trusted_Connection=True;"
+      }
+    }
+  }
+}
